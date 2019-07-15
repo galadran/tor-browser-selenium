@@ -32,6 +32,7 @@ class TorBrowserTest(unittest.TestCase):
 
     def test_tbb_logfile(self):
         log_txt = read_file(self.log_file)
+        print(log_txt)
         self.assertIn("Torbutton INFO", log_txt)
 
     @pytest.mark.skipif(sys.platform != 'linux2', reason='Requires Linux')

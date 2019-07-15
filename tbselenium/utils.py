@@ -67,7 +67,7 @@ def launch_tbb_tor_with_stem(tbb_path=None, torrc=None, tor_binary=None):
         tor_binary = join(tbb_path, cm.DEFAULT_TOR_BINARY_PATH)
 
     if not isfile(tor_binary):
-        raise StemLaunchError("Invalid Tor binary")
+        raise StemLaunchError("Invalid Tor binary at " + str(tor_binary))
 
     prepend_to_env_var("LD_LIBRARY_PATH", dirname(tor_binary))
     if torrc is None:

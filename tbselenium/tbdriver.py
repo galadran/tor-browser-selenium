@@ -14,6 +14,7 @@ from tbselenium.tbbinary import TBBinary
 from tbselenium.exceptions import (TBDriverConfigError, TBDriverPortError,
                                    TBDriverPathError)
 
+from selenium.webdriver.firefox.options import Options
 
 try:
     from httplib import CannotSendRequest
@@ -50,7 +51,10 @@ class TorBrowserDriver(FirefoxDriver):
         self.export_env_vars()
         self.binary = self.get_tb_binary(logfile=tbb_logfile_path)
         self.binary.add_command_line_options('--class', '"Tor Browser"')
-        super(TorBrowserDriver, self).__init__(firefox_profile=self.profile,
+        options = Options()
+        options.headless = True
+        super(TorBrowserDriver, self).__init__(firefox_options=options,
+					                           firefox_profile=self.profile,
                                                firefox_binary=self.binary,
                                                capabilities=self.capabilities,
                                                timeout=cm.TB_INIT_TIMEOUT,

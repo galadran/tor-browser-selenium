@@ -3,7 +3,7 @@ from stem.control import Controller
 from stem import CircStatus
 from tbselenium.tbdriver import TorBrowserDriver
 import tbselenium.common as cm
-from tbselenium.utils import launch_tbb_tor_with_stem
+from tbselenium.utils import launch_tbb_tor_with_stem, start_xvfb, stop_xvfb
 from selenium.webdriver.common.utils import free_port
 import tempfile
 from os.path import join
@@ -30,6 +30,7 @@ def print_tor_circuits(controller):
 
 
 def launch_tb_with_custom_stem(tbb_dir):
+    xvfb_display = start_xvfb()
     socks_port = free_port()
     control_port = free_port()
     tor_data_dir = tempfile.mkdtemp()
@@ -51,6 +52,7 @@ def launch_tb_with_custom_stem(tbb_dir):
             print(driver.find_element_by(".content > p").text)
         print_tor_circuits(controller)
 
+    stop_xvfb(xvfb_display)
     tor_process.kill()
 
 
